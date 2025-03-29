@@ -6,6 +6,7 @@ import ProjectsPage from "./pages/ProjectsPage.tsx";
 import SettingsPage from "./pages/SettingsPage.tsx";
 import { LoadingLayout } from "./layouts/LoadingLayout.tsx";
 import { useThemeStore, updateThemeClass } from './store/themeStore';
+import { AuthPage } from "./pages/AuthPage.tsx";
 
 const App: React.FC = () => {
   let [loading] = React.useState(false);
@@ -31,6 +32,7 @@ const App: React.FC = () => {
       <Router>
         <Suspense fallback={<LoadingLayout/>}>
           <Routes>
+            <Route path="/login" element={<AuthPage/>}/>
             <Route path="/dashboard" element={<DashboardPage/>}/>
             <Route path="/history" element={<HistoryPage/>}/>
             <Route path="/projects" element={<ProjectsPage/>}/>
