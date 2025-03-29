@@ -1,12 +1,14 @@
 import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
-import DashboardPage from "./pages/DashboardPage.tsx";
-import HistoryPage from "./pages/HistoryPage.tsx";
-import ProjectsPage from "./pages/ProjectsPage.tsx";
-import SettingsPage from "./pages/SettingsPage.tsx";
 import { LoadingLayout } from "./layouts/LoadingLayout.tsx";
 import { useThemeStore, updateThemeClass } from './store/themeStore';
 import { AuthPage } from "./pages/AuthPage.tsx";
+
+// Lazy load components
+const DashboardPage = React.lazy(() => import('./pages/DashboardPage.tsx').then(m => ({ default: m.default })));
+const ProjectsPage = React.lazy(() => import('./pages/ProjectsPage').then(m => ({ default: m.default })));
+const HistoryPage = React.lazy(() => import('./pages/HistoryPage').then(m => ({ default: m.default })));
+const SettingsPage = React.lazy(() => import('./pages/SettingsPage').then(m => ({ default: m.default })));
 
 const App: React.FC = () => {
   let [loading] = React.useState(false);
