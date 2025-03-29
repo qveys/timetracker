@@ -73,6 +73,12 @@ export interface TimeState {
   updateElapsedTime: () => void;
 }
 
+export interface CreateProjectModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onProjectCreated: () => void;
+}
+
 // Constants
 export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
   monday: [{ start: '09:00', end: '17:00' }],

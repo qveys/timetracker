@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DashboardLayout } from "../layouts/DashboardLayout.tsx";
 import { Plus } from "lucide-react";
+import { CreateProjectModal } from "../components/CreateProjectModal.tsx";
 import { supabase } from "../lib/supabase.ts";
 import { Project } from "../types";
 
@@ -35,6 +36,12 @@ export default function ProjectsPage() {
             New Project
           </button>
         </div>
+
+        <CreateProjectModal
+            isOpen={isCreateModalOpen}
+            onClose={() => setIsCreateModalOpen(false)}
+            onProjectCreated={fetchProjects}
+        />
       </div>
     </DashboardLayout>
   );
