@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import DashboardPage from "./pages/DashboardPage.tsx";
 import HistoryPage from "./pages/HistoryPage.tsx";
 import ProjectsPage from "./pages/ProjectsPage.tsx";
@@ -8,7 +8,7 @@ import { LoadingLayout } from "./layouts/LoadingLayout.tsx";
 import { useThemeStore, updateThemeClass } from './store/themeStore';
 
 const App: React.FC = () => {
-  let [loading] = React.useState(true);
+  let [loading] = React.useState(false);
   const theme = useThemeStore(state => state.theme);
 
   // Apply theme class and listen for system theme changes
@@ -35,6 +35,7 @@ const App: React.FC = () => {
             <Route path="/history" element={<HistoryPage/>}/>
             <Route path="/projects" element={<ProjectsPage/>}/>
             <Route path="/settings" element={<SettingsPage/>}/>
+            <Route path="/" element={<Navigate to={"/dashboard"}/>}/>
           </Routes>
         </Suspense>
       </Router>
