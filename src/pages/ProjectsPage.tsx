@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import { CreateProjectModal } from "../components/CreateProjectModal.tsx";
 import { supabase } from "../lib/supabase.ts";
 import { Project } from "../types";
+import { ProjectStats } from "../components/ProjectStats.tsx";
 
 export default function ProjectsPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -23,6 +24,13 @@ export default function ProjectsPage() {
     setProjects(data || []);
   };
 
+  const projectStats = {
+    total: projects.length,
+    active: projects.filter(p => p.status === 'active').length,
+    completed: projects.filter(p => p.status === 'completed').length,
+    archived: projects.filter(p => p.status === 'archived').length,
+  };
+
   return (
     <DashboardLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
@@ -36,6 +44,8 @@ export default function ProjectsPage() {
             New Project
           </button>
         </div>
+
+        <ProjectStats stats={projectStats} onFilterChange={setStatusFilter} currentFilter={statusFilter} />
 
         <CreateProjectModal
             isOpen={isCreateModalOpen}

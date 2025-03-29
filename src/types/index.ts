@@ -79,6 +79,17 @@ export interface CreateProjectModalProps {
   onProjectCreated: () => void;
 }
 
+export interface ProjectStatsProps {
+  stats: {
+    total: number;
+    active: number;
+    completed: number;
+    archived: number;
+  };
+  onFilterChange: (filter: 'all' | 'active' | 'completed' | 'archived') => void;
+  currentFilter: 'all' | 'active' | 'completed' | 'archived';
+}
+
 // Constants
 export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
   monday: [{ start: '09:00', end: '17:00' }],
