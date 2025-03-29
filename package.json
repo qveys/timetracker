@@ -18,10 +18,17 @@
     "author": "Quentin Veys",
     "license": "ISC",
     "description": "timetracker project to track time spent on tasks. My contribution to the KERN IT Challenge that they use in their recruitment process.",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview"
+    },
     "dependencies": {
         "react": "^18.3.1"
     },
     "devDependencies": {
-        "@types/react": "^18.3.5"
+        "@types/react": "^18.3.5",
+        "@vitejs/plugin-react": "^4.3.1",
+        "vite": "^6.2.3"
     }
 }
