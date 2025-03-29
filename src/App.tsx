@@ -1,12 +1,13 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import DashboardPage from "./pages/DashboardPage.tsx";
 
 const App: React.FC = () => {
-    return (
-        <div>
-            <h1>Time Tracker</h1>
-            <p>Welcome to the Time Tracker App!</p>
-        </div>
-    );
+  return (
+      <Router>
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Router>
+  );
 };
 
 export default App;
