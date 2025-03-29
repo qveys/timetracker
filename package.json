@@ -1,0 +1,18 @@
+{
+    "name": "timetracker",
+    "private": true,
+    "type": "module",
+    "version": "1.0.0",
+    "main": "index.js",
+    "keywords": ["timetracker", "time tracking", "task management", "time", "management", "tasks", "tracking", "project management", "productivity"],
+    "author": "Quentin Veys",
+    "license": "ISC",
+    "description": "timetracker project to track time spent on tasks. My contribution to the KERN IT Challenge that they use in their recruitment process.",
+    "dependencies": {
+      "react": "^18.3.1"
+    },
+    "devDependencies": {
+      "@types/react": "^18.3.5"
+    }
+  }
+  
