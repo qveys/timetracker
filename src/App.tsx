@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-d
 import { LoadingLayout } from "./layouts/LoadingLayout.tsx";
 import { useThemeStore, updateThemeClass } from './store/themeStore';
 import { AuthPage } from "./pages/AuthPage.tsx";
+import { useAuthStore } from "./store/authStore.ts";
 
 // Lazy load components
 const DashboardPage = React.lazy(() => import('./pages/DashboardPage.tsx').then(m => ({ default: m.default })));
@@ -11,8 +12,12 @@ const HistoryPage = React.lazy(() => import('./pages/HistoryPage').then(m => ({ 
 const SettingsPage = React.lazy(() => import('./pages/SettingsPage').then(m => ({ default: m.default })));
 
 const App: React.FC = () => {
-  let [loading] = React.useState(false);
+  const { initialize, loading, user } = useAuthStore();
   const theme = useThemeStore(state => state.theme);
+
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
 
   // Apply theme class and listen for system theme changes
   useEffect(() => {
@@ -34,12 +39,12 @@ const App: React.FC = () => {
       <Router>
         <Suspense fallback={<LoadingLayout/>}>
           <Routes>
-            <Route path="/login" element={<AuthPage/>}/>
-            <Route path="/dashboard" element={<DashboardPage/>}/>
-            <Route path="/history" element={<HistoryPage/>}/>
-            <Route path="/projects" element={<ProjectsPage/>}/>
-            <Route path="/settings" element={<SettingsPage/>}/>
-            <Route path="/" element={<Navigate to={"/dashboard"}/>}/>
+            <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <AuthPage/>}/>
+            <Route path="/dashboard" element={user ? <DashboardPage/> : <Navigate to="/login" />}/>
+            <Route path="/history" element={user ? <HistoryPage/> : <Navigate to="/login" />}/>
+            <Route path="/projects" element={user ? <ProjectsPage/> : <Navigate to="/login" />}/>
+            <Route path="/settings" element={user ? <SettingsPage/> : <Navigate to="/login" />}/>
+            <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"}/>}/>
           </Routes>
         </Suspense>
       </Router>
