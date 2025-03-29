@@ -1,9 +1,26 @@
 import { useState } from "react";
 import { DashboardLayout } from "../layouts/DashboardLayout.tsx";
 import { Plus } from "lucide-react";
+import { supabase } from "../lib/supabase.ts";
+import { Project } from "../types";
 
 export default function ProjectsPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  const fetchProjects = async () => {
+    const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching projects:', error);
+      return;
+    }
+
+    setProjects(data || []);
+  };
 
   return (
     <DashboardLayout>

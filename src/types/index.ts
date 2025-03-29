@@ -1,5 +1,7 @@
+// Types
 export type UserRole = 'backend_dev' | 'frontend_dev' | 'fullstack_dev' | 'ux_designer';
 
+// Interfaces
 export interface User {
   id: string;
   email: string;
@@ -45,6 +47,33 @@ export interface WorkSchedule {
   sunday: WorkingHours[];
 }
 
+export interface Auth {
+  user: User | null;
+  loading: boolean;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, fullName: string, role: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  initialize: () => Promise<void>;
+}
+
+export interface ActiveTimeEntry {
+  id: string;
+  description: string;
+  projectId: string;
+  projectName: string;
+  startTime: Date;
+  elapsedTime: number;
+  autoStopTime: Date | null;
+}
+
+export interface TimeState {
+  activeEntry: ActiveTimeEntry | null;
+  startTracking: (description: string, projectId: string, projectName: string, autoStopTime?: Date | null) => Promise<void>;
+  stopTracking: () => Promise<void>;
+  updateElapsedTime: () => void;
+}
+
+// Constants
 export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
   monday: [{ start: '09:00', end: '17:00' }],
   tuesday: [{ start: '09:00', end: '17:00' }],
@@ -54,12 +83,3 @@ export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
   saturday: [],
   sunday: [],
 };
-
-export interface Auth {
-  user: User | null;
-  loading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, fullName: string, role: string) => Promise<void>;
-  signOut: () => Promise<void>;
-  initialize: () => Promise<void>;
-}
