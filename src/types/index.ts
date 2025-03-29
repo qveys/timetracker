@@ -54,3 +54,12 @@ export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
   saturday: [],
   sunday: [],
 };
+
+export interface Auth {
+  user: User | null;
+  loading: boolean;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, fullName: string, role: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  initialize: () => Promise<void>;
+}

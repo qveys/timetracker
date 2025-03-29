@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
 import { UserRole } from '../types';
+import { useAuthStore } from "../store/authStore.ts";
 
 export function SignUpForm({ onToggle }: { onToggle: () => void }) {
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ export function SignUpForm({ onToggle }: { onToggle: () => void }) {
   const [role, setRole] = useState<UserRole>('frontend_dev');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const signUp = useAuthStore((state) => state.signUp);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,7 +18,7 @@ export function SignUpForm({ onToggle }: { onToggle: () => void }) {
     setIsLoading(true);
 
     try {
-      // signup Logic here
+      await signUp(email, password, fullName, role);
     } catch (err) {
       setError('Failed to create account. Please try again.');
     } finally {

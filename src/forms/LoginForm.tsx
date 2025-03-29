@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
+import { useAuthStore } from "../store/authStore.ts";
 
 export function LoginForm({ onToggle }: { onToggle: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const signIn = useAuthStore(state => state.signIn);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,7 +15,7 @@ export function LoginForm({ onToggle }: { onToggle: () => void }) {
     setIsLoading(true);
 
     try {
-      //signin Logic here
+      await signIn(email, password);
     } catch (err) {
       setError('Invalid email or password');
     } finally {
