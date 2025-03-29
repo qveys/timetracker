@@ -1,24 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Tracker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Tracker</title>
+  <script>
+    (function () {
+      // Immediately restore dark mode preference
+      try {
+        const stored = localStorage.getItem('theme-storage');
+        if (stored) {
+          const theme = JSON.parse(stored).state.theme;
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const isDark = theme === 'dark' || (theme === 'system' && prefersDark);
+
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.add('light');
+          }
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.add('light');
+        }
+      } catch (e) {
+        console.error('Failed to restore theme:', e);
+        // Default to light theme
+        document.documentElement.classList.add('light');
+      }
+    })();
+  </script>
 </head>
 <body>
-    <header>
-        <h1>Time Tracker</h1>
-    </header>
-    <main>
-        <section id="tracker">
-            <h2>Track Your Time</h2>
-            <button id="startButton">Start</button>
-            <button id="stopButton">Stop</button>
-            <p id="timeDisplay">00:00:00</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Time Tracker</p>
-    </footer>
+<header>
+  <h1>Time Tracker</h1>
+</header>
+<main>
+  <section id="tracker">
+    <h2>Track Your Time</h2>
+    <button id="startButton">Start</button>
+    <button id="stopButton">Stop</button>
+    <p id="timeDisplay">00:00:00</p>
+  </section>
+</main>
+<footer>
+  <p>&copy; 2023 Time Tracker</p>
+</footer>
 </body>
 </html>
