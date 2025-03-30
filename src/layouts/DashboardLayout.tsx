@@ -1,6 +1,7 @@
 import React from "react";
 import { Logo } from "@/components/ui/Logo.tsx";
 import { Nav } from "@/components/ui/Nav.tsx";
+import { Profile } from "@/components/ui/Profile.tsx";
 
 export const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -8,6 +9,7 @@ export const DashboardLayout = ({ children }: { children: React.ReactNode }) => 
         <aside className="w-64 bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 h-screen sticky top-0">
           <Logo/>
           <Nav/>
+          <Profile/>
         </aside>
         <main className="flex-1 overflow-auto bg-white dark:bg-gray-900">
           {children}
