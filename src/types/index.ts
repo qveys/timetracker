@@ -118,6 +118,12 @@ export interface MainTabsProps {
 }
 // Constants
 
+export interface NotificationSettingsProps {
+  onSuccess: () => void;
+  onError: (error: string) => void;
+}
+
+
 export interface ToggleProps {
   enabled: boolean;
   onChange: () => void;
