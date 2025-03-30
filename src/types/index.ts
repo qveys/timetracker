@@ -117,6 +117,16 @@ export interface MainTabsProps {
   setActiveTab: Dispatch<SetStateAction<SettingsTab>>
 }
 // Constants
+export interface PasswordFormProps {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+  isLoading: boolean;
+  onSubmit: (e: React.FormEvent) => Promise<void>;
+  onCurrentPasswordChange: (value: string) => void;
+  onNewPasswordChange: (value: string) => void;
+  onConfirmPasswordChange: (value: string) => void;
+}
 
 export interface NotificationSettingsProps {
   onSuccess: () => void;
