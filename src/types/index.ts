@@ -1,7 +1,9 @@
-// Types
+// Imports
 import { Dispatch, SetStateAction } from "react";
 
-export type UserRole = 'backend_dev' | 'frontend_dev' | 'fullstack_dev' | 'ux_designer';
+// Types simples
+export type DaysOfWeek = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+export type UserRole = 'admin' | 'manager' | 'frontend_dev' | 'backend_dev' | 'designer' | 'fullstack_dev' | 'ux_designer';
 export type ProjectStatus = 'all' | 'active' | 'completed' | 'archived';
 export type Theme = 'light' | 'dark' | 'system';
 export type SettingsTab = 'account' | 'appearance' | 'notifications' | 'user-preferences';
@@ -162,6 +164,17 @@ export interface EmailFormProps {
   isLoading: boolean;
   onSubmit: (e: React.FormEvent) => void;
   onEmailChange: (email: string) => void;
+}
+
+export interface DayScheduleProps {
+  day: DaysOfWeek;
+  dayLabel: string;
+  slots: WorkingHours[];
+  errors: Record<string, string>;
+  isToday: boolean;
+  onAddTimeSlot: (day: DaysOfWeek) => void;
+  onRemoveTimeSlot: (day: DaysOfWeek, index: number) => void;
+  onTimeSlotChange: (day: DaysOfWeek, index: number, field: 'start' | 'end', value: string) => void;
 }
 
 // Constantes
