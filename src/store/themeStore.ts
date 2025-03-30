@@ -1,12 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-type Theme = 'light' | 'dark' | 'system';
-
-interface ThemeState {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-}
+import { Theme, ThemeState } from '@/types';
 
 // Helper to get the effective theme based on system preference
 export const getEffectiveTheme = (theme: Theme): 'light' | 'dark' => {

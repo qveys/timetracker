@@ -2,8 +2,15 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type UserRole = 'backend_dev' | 'frontend_dev' | 'fullstack_dev' | 'ux_designer';
+export type Theme = 'light' | 'dark' | 'system';
 export type SettingsTab = 'account' | 'appearance' | 'notifications' | 'user-preferences';
 export type UserPreferencesSubTab = 'profile' | 'schedule';
+
+export interface ThemeState {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+}
+export type AppearanceSettingsProps = ThemeState;
 
 // Interfaces
 export interface User {
