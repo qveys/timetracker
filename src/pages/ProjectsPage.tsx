@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { DashboardLayout } from "../layouts/DashboardLayout.tsx";
-import { Plus } from "lucide-react";
-import { CreateProjectModal } from "../components/CreateProjectModal.tsx";
-import { supabase } from "../lib/supabase.ts";
-import { Project } from "../types";
-import { ProjectStats } from "../components/ProjectStats.tsx";
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { DashboardLayout } from '@/layouts/DashboardLayout';
+import { ProjectList } from '@/components/projects/ProjectList';
+import { ProjectStats } from '@/components/projects/ProjectStats';
+import { CreateProjectModal } from '@/components/projects/CreateProjectModal';
+import { Plus, Search } from 'lucide-react';
+import { Project } from '@/types';
+import { supabase } from '../lib/supabase';
 
 export default function ProjectsPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
