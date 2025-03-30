@@ -10,6 +10,7 @@ import { AppearanceSettings } from "@/components/settings/AppearanceSettings";
 import { NotificationSettings } from "@/components/settings/NotificationSettings";
 import { StatusMessages } from "@/components/settings/StatusMessages";
 import { useAuthStore } from "@/store/authStore.ts";
+import { UserProfileSettings } from "@/components/settings/UserProfileSettings";
 import { WorkScheduleSettings } from "@/components/settings/WorkScheduleSettings";
 
 export default function SettingsPage() {
@@ -18,7 +19,9 @@ export default function SettingsPage() {
   const { theme, setTheme } = useThemeStore();
   const { initialize, user } = useAuthStore();
 
-  const { success, error, handleSuccess, handleError } = useSupabase();
+  const { success, error, handleSuccess, handleError, updateData } = useSupabase({
+    onSuccess: () => initialize()
+  });
 
   const handleWorkScheduleUpdate = async (schedule: any) => {
     if (!user?.id) return;
@@ -44,6 +47,20 @@ export default function SettingsPage() {
 
           {activeTab === 'notifications' && (
               <NotificationSettings onSuccess={handleSuccess} onError={handleError}/>
+          )}
+
+          {activeTab === 'user-preferences' && activeSubTab === 'profile' && (
+              <UserProfileSettings
+                  userId={user.id}
+                  initialProfile={{
+                    fullName: user.full_name,
+                    jobTitle: 'Software Developer',
+                    bio: '',
+                  }}
+                  onSuccess={handleSuccess}
+                  onError={handleError}
+                  onProfileUpdate={initialize}
+              />
           )}
 
           {activeTab === 'user-preferences' && activeSubTab === 'schedule' && (
