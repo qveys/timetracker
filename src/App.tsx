@@ -1,15 +1,15 @@
 import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import { LoadingLayout } from "./layouts/LoadingLayout.tsx";
-import { useThemeStore, updateThemeClass } from './store/themeStore';
+import { useThemeStore, updateThemeClass } from '@/store/themeStore';
 import { AuthPage } from "./pages/AuthPage.tsx";
 import { useAuthStore } from "./store/authStore.ts";
 
 // Lazy load components
-const DashboardPage = React.lazy(() => import('./pages/DashboardPage.tsx').then(m => ({ default: m.default })));
-const ProjectsPage = React.lazy(() => import('./pages/ProjectsPage').then(m => ({ default: m.default })));
-const HistoryPage = React.lazy(() => import('./pages/HistoryPage').then(m => ({ default: m.default })));
-const SettingsPage = React.lazy(() => import('./pages/SettingsPage').then(m => ({ default: m.default })));
+const DashboardPage = React.lazy(() => import('@/pages/DashboardPage.tsx').then(m => ({ default: m.default })));
+const ProjectsPage = React.lazy(() => import('@/pages/ProjectsPage').then(m => ({ default: m.default })));
+const HistoryPage = React.lazy(() => import('@/pages/HistoryPage').then(m => ({ default: m.default })));
+const SettingsPage = React.lazy(() => import('@/pages/SettingsPage').then(m => ({ default: m.default })));
 
 const App: React.FC = () => {
   const { initialize, loading, user } = useAuthStore();

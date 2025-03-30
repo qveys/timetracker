@@ -1,5 +1,6 @@
+import React from 'react';
 import { Clock, CheckCircle2, Archive, Boxes } from 'lucide-react';
-import { ProjectStatsProps } from "../types";
+import { ProjectStatsProps } from "@/types";
 
 export function ProjectStats({ stats, onFilterChange, currentFilter }: ProjectStatsProps) {
   const statItems = [

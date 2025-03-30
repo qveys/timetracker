@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-import { CreateProjectModalProps } from "../types";
+import { supabase } from '@/lib/supabase.ts';
+import { CreateProjectModalProps } from "@/types";
 
 export function CreateProjectModal({ isOpen, onClose, onProjectCreated }: CreateProjectModalProps) {
   const [name, setName] = useState('');

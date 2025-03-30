@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
-import { UserRole } from '../types';
+import { UserRole } from '@/types';
 import { useAuthStore } from "../store/authStore.ts";
 
 export function SignUpForm({ onToggle }: { onToggle: () => void }) {

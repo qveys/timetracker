@@ -1,4 +1,5 @@
-import { DashboardLayout } from "../layouts/DashboardLayout.tsx";
+import React from "react";
+import { DashboardLayout } from "@/layouts/DashboardLayout.tsx";
 
 export default function DashboardPage() {
   return (

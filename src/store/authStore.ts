@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { Auth } from '../types';
-import { supabase, checkUserProfile, initializeUser } from "../lib/supabase";
+import { Auth } from '@/types';
+import { checkUserProfile, initializeUser, supabase } from '@/lib/supabase';
 
 export const useAuthStore = create<Auth>((set) => ({
   user: null,
