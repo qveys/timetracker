@@ -77,6 +77,13 @@ export interface TimeState {
   updateElapsedTime: () => void;
 }
 
+export interface UseSupabaseOptions {
+  onSuccess?: () => void;
+  onError?: (message: string) => void;
+  successDuration?: number;
+  errorDuration?: number;
+}
+
 export interface CreateProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
