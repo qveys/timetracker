@@ -136,6 +136,13 @@ export interface ToggleProps {
   onChange: () => void;
 }
 
+export interface EmailFormProps {
+  email: string;
+  isLoading: boolean;
+  onSubmit: (e: React.FormEvent) => void;
+  onEmailChange: (email: string) => void;
+}
+
 export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
   monday: [{ start: '09:00', end: '17:00' }],
   tuesday: [{ start: '09:00', end: '17:00' }],
