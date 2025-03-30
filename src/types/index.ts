@@ -117,6 +117,12 @@ export interface MainTabsProps {
   setActiveTab: Dispatch<SetStateAction<SettingsTab>>
 }
 // Constants
+
+export interface ToggleProps {
+  enabled: boolean;
+  onChange: () => void;
+}
+
 export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
   monday: [{ start: '09:00', end: '17:00' }],
   tuesday: [{ start: '09:00', end: '17:00' }],
