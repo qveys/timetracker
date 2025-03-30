@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { DashboardLayout } from "@/layouts/DashboardLayout";
 import { MainTabs } from "@/components/settings/MainTabs";
 import { SubTabs } from "@/components/settings/SubTabs";
-import { SettingsTab, UserPreferencesSubTab } from "@/types";
-import { AccountSettings } from "@/components/settings/AccountSettings.tsx";
+import { DEFAULT_WORK_SCHEDULE, SettingsTab, UserPreferencesSubTab } from "@/types";
+import { AccountSettings } from "@/components/settings/AccountSettings";
 import { useThemeStore } from "@/store/themeStore.ts";
 import { useSupabase } from '@/hooks/useSupabase';
 import { AppearanceSettings } from "@/components/settings/AppearanceSettings";
 import { NotificationSettings } from "@/components/settings/NotificationSettings";
-import { StatusMessages } from "@/components/settings/StatusMessages.tsx";
+import { StatusMessages } from "@/components/settings/StatusMessages";
 import { useAuthStore } from "@/store/authStore.ts";
+import { WorkScheduleSettings } from "@/components/settings/WorkScheduleSettings";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState<SettingsTab>('user-preferences');
@@ -19,6 +20,10 @@ export default function SettingsPage() {
 
   const { success, error, handleSuccess, handleError } = useSupabase();
 
+  const handleWorkScheduleUpdate = async (schedule: any) => {
+    if (!user?.id) return;
+    await updateData('users', { work_schedule: schedule }, user.id);
+  };
 
   if (!user) return null;
 
@@ -39,6 +44,13 @@ export default function SettingsPage() {
 
           {activeTab === 'notifications' && (
               <NotificationSettings onSuccess={handleSuccess} onError={handleError}/>
+          )}
+
+          {activeTab === 'user-preferences' && activeSubTab === 'schedule' && (
+              <WorkScheduleSettings
+                  schedule={user.work_schedule || DEFAULT_WORK_SCHEDULE}
+                  onChange={handleWorkScheduleUpdate}
+              />
           )}
 
           <StatusMessages success={success} error={error}/>
