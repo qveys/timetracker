@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export type UserRole = 'backend_dev' | 'frontend_dev' | 'fullstack_dev' | 'ux_designer';
 export type SettingsTab = 'account' | 'appearance' | 'notifications' | 'user-preferences';
+export type UserPreferencesSubTab = 'profile' | 'schedule';
 
 // Interfaces
 export interface User {
@@ -107,3 +108,9 @@ export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
   saturday: [],
   sunday: [],
 };
+
+export interface SubTabsProps {
+  activeTab: SettingsTab;
+  setActiveSubTab: (tab: UserPreferencesSubTab) => void;
+  activeSubTab: UserPreferencesSubTab;
+}

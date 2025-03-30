@@ -1,18 +1,17 @@
-import { DashboardLayout } from "../layouts/DashboardLayout.tsx";
 import React, { useState } from "react";
 import { DashboardLayout } from "@/layouts/DashboardLayout";
 import { MainTabs } from "@/components/settings/MainTabs";
-import { SettingsTab } from "@/types";
+import { SubTabs } from "@/components/settings/SubTabs";
+import { SettingsTab, UserPreferencesSubTab } from "@/types";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState<SettingsTab>('user-preferences');
+  const [activeSubTab, setActiveSubTab] = useState<UserPreferencesSubTab>('profile');
 
   return (
     <DashboardLayout>
-      <div className="h-full w-full flex items-center justify-center">
-        <p className="text-2xl">Coming soon...</p>
-      </div>
       <MainTabs activeTab={activeTab} setActiveTab={setActiveTab}/>
+      <SubTabs activeSubTab={activeSubTab} activeTab={activeTab} setActiveSubTab={setActiveSubTab}/>
     </DashboardLayout>
   );
 }
