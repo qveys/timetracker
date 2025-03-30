@@ -153,6 +153,13 @@ export interface ProfileFormProps {
   onProfileChange: (profile: Profile) => void;
 }
 
+export interface UserProfileSettingsProps {
+  userId: string;
+  initialProfile: Profile;
+  onSuccess: () => void;
+  onError: (message: string) => void;
+  onProfileUpdate: () => Promise<void>;
+}
 
 export interface ToggleProps {
   enabled: boolean;
