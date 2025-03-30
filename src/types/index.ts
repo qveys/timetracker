@@ -12,7 +12,11 @@ export interface ThemeState {
 }
 export type AppearanceSettingsProps = ThemeState;
 
-// Interfaces
+export interface StatusMessagesProps {
+  success?: boolean;
+  error?: string | null | undefined;
+}
+
 export interface User {
   id: string;
   email: string;
