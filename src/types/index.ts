@@ -123,6 +123,13 @@ export interface NotificationSettingsProps {
   onError: (error: string) => void;
 }
 
+export interface ProfileFormProps {
+  profile: Profile;
+  loading: boolean;
+  onSubmit: (e: React.FormEvent) => Promise<void>;
+  onProfileChange: (profile: Profile) => void;
+}
+
 
 export interface ToggleProps {
   enabled: boolean;
