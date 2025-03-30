@@ -123,7 +123,11 @@ export interface MainTabsProps {
   activeTab: string;
   setActiveTab: Dispatch<SetStateAction<SettingsTab>>
 }
-// Constants
+
+export interface AccountSettingsProps {
+  userEmail: string;
+}
+
 export interface PasswordFormProps {
   currentPassword: string;
   newPassword: string;
