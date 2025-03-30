@@ -20,6 +20,12 @@ export interface StatusMessagesProps {
   error?: string | null | undefined;
 }
 
+export interface Profile {
+  fullName: string;
+  jobTitle: string;
+  bio: string;
+}
+
 export interface User {
   id: string;
   email: string;
@@ -66,15 +72,6 @@ export interface WorkSchedule {
   sunday: WorkingHours[];
 }
 
-export interface Auth {
-  user: User | null;
-  loading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, fullName: string, role: string) => Promise<void>;
-  signOut: () => Promise<void>;
-  initialize: () => Promise<void>;
-}
-
 export interface ActiveTimeEntry {
   id: string;
   description: string;
@@ -99,6 +96,17 @@ export interface UseSupabaseOptions {
   errorDuration?: number;
 }
 
+// Interfaces d'authentification
+export interface Auth {
+  user: User | null;
+  loading: boolean;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, fullName: string, role: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  initialize: () => Promise<void>;
+}
+
+// Props des composants
 export interface CreateProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
