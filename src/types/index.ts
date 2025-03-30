@@ -1,5 +1,8 @@
 // Types
+import { Dispatch, SetStateAction } from "react";
+
 export type UserRole = 'backend_dev' | 'frontend_dev' | 'fullstack_dev' | 'ux_designer';
+export type SettingsTab = 'account' | 'appearance' | 'notifications' | 'user-preferences';
 
 // Interfaces
 export interface User {
@@ -90,6 +93,10 @@ export interface ProjectStatsProps {
   currentFilter: 'all' | 'active' | 'completed' | 'archived';
 }
 
+export interface MainTabsProps {
+  activeTab: string;
+  setActiveTab: Dispatch<SetStateAction<SettingsTab>>
+}
 // Constants
 export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
   monday: [{ start: '09:00', end: '17:00' }],
