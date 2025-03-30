@@ -2,6 +2,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type UserRole = 'backend_dev' | 'frontend_dev' | 'fullstack_dev' | 'ux_designer';
+export type ProjectStatus = 'all' | 'active' | 'completed' | 'archived';
 export type Theme = 'light' | 'dark' | 'system';
 export type SettingsTab = 'account' | 'appearance' | 'notifications' | 'user-preferences';
 export type UserPreferencesSubTab = 'profile' | 'schedule';
@@ -20,8 +21,16 @@ export interface StatusMessagesProps {
 export interface User {
   id: string;
   email: string;
-  role: UserRole;
   full_name: string;
+  role: UserRole;
+  work_schedule: WorkSchedule;
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  status: ProjectStatus;
   created_at: string;
   work_schedule?: WorkSchedule;
 }
@@ -39,14 +48,7 @@ export interface TimeEntry {
   is_archived: boolean;
 }
 
-export interface Project {
-  id: string;
-  name: string;
-  description: string;
-  status: 'active' | 'completed' | 'archived';
-  created_at: string;
-}
-
+// Interfaces pour le temps de travail
 export interface WorkingHours {
   start: string;
   end: string;
@@ -101,6 +103,11 @@ export interface CreateProjectModalProps {
   onProjectCreated: () => void;
 }
 
+export interface WorkScheduleSettingsProps {
+  schedule: WorkSchedule;
+  onChange: (schedule: WorkSchedule) => void;
+}
+
 export interface ProjectStatsProps {
   stats: {
     total: number;
@@ -108,8 +115,8 @@ export interface ProjectStatsProps {
     completed: number;
     archived: number;
   };
-  onFilterChange: (filter: 'all' | 'active' | 'completed' | 'archived') => void;
-  currentFilter: 'all' | 'active' | 'completed' | 'archived';
+  onFilterChange: (filter: ProjectStatus) => void;
+  currentFilter: ProjectStatus;
 }
 
 export interface MainTabsProps {
@@ -153,6 +160,7 @@ export interface EmailFormProps {
   onEmailChange: (email: string) => void;
 }
 
+// Constantes
 export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
   monday: [{ start: '09:00', end: '17:00' }],
   tuesday: [{ start: '09:00', end: '17:00' }],
