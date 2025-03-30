@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
-import { useAuthStore } from "../store/authStore.ts";
+import { useAuthStore } from "@/store/authStore.ts";
 
 export function LoginForm({ onToggle }: { onToggle: () => void }) {
   const [email, setEmail] = useState('');
