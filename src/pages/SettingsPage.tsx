@@ -23,9 +23,12 @@ export default function SettingsPage() {
   if (!user) return null;
 
   return (
-    <DashboardLayout>
-      <MainTabs activeTab={activeTab} setActiveTab={setActiveTab}/>
-      <SubTabs activeSubTab={activeSubTab} activeTab={activeTab} setActiveSubTab={setActiveSubTab}/>
+      <DashboardLayout>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Settings</h1>
+          <MainTabs activeTab={activeTab} setActiveTab={setActiveTab}/>
+          <SubTabs activeSubTab={activeSubTab} activeTab={activeTab} setActiveSubTab={setActiveSubTab}/>
+
           {activeTab === 'account' && (
               <AccountSettings userEmail={user.email}/>
           )}
@@ -39,6 +42,7 @@ export default function SettingsPage() {
           )}
 
           <StatusMessages success={success} error={error}/>
+        </div>
       </DashboardLayout>
   );
 }
