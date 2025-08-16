@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { DashboardLayout } from "@/layouts/DashboardLayout";
 import { MainTabs } from "@/components/settings/MainTabs";
 import { SubTabs } from "@/components/settings/SubTabs";
-import { DEFAULT_WORK_SCHEDULE, SettingsTab, UserPreferencesSubTab } from "@/types";
-import { AccountSettings } from "@/components/settings/AccountSettings";
+import { DEFAULT_WORK_SCHEDULE } from "@/constants/schedule";
+import { SettingsTab, UserPreferencesSubTab } from "@/types";
+import { SettingAccount } from "@/components/settings/SettingAccount.tsx";
 import { useThemeStore } from "@/store/themeStore.ts";
 import { useSupabase } from '@/hooks/useSupabase';
-import { AppearanceSettings } from "@/components/settings/AppearanceSettings";
-import { NotificationSettings } from "@/components/settings/NotificationSettings";
+import { SettingAppearance } from "@/components/settings/SettingAppearance.tsx";
+import { SettingNotification } from "@/components/settings/SettingNotification.tsx";
 import { StatusMessages } from "@/components/settings/StatusMessages";
 import { useAuthStore } from "@/store/authStore.ts";
-import { UserProfileSettings } from "@/components/settings/UserProfileSettings";
-import { WorkScheduleSettings } from "@/components/settings/WorkScheduleSettings";
+import { SettingUserProfile } from "@/components/settings/SettingUserProfile.tsx";
+import { SettingWorkSchedule } from "@/components/settings/SettingWorkSchedule.tsx";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState<SettingsTab>('user-preferences');
@@ -38,19 +39,19 @@ export default function SettingsPage() {
           <SubTabs activeSubTab={activeSubTab} activeTab={activeTab} setActiveSubTab={setActiveSubTab}/>
 
           {activeTab === 'account' && (
-              <AccountSettings userEmail={user.email}/>
+              <SettingAccount email={user.email}/>
           )}
 
           {activeTab === 'appearance' && (
-              <AppearanceSettings theme={theme} setTheme={setTheme}/>
+              <SettingAppearance theme={theme} setTheme={setTheme}/>
           )}
 
           {activeTab === 'notifications' && (
-              <NotificationSettings onSuccess={handleSuccess} onError={handleError}/>
+              <SettingNotification onSuccess={handleSuccess} onError={handleError}/>
           )}
 
           {activeTab === 'user-preferences' && activeSubTab === 'profile' && (
-              <UserProfileSettings
+              <SettingUserProfile
                   userId={user.id}
                   initialProfile={{
                     fullName: user.full_name,
@@ -64,7 +65,7 @@ export default function SettingsPage() {
           )}
 
           {activeTab === 'user-preferences' && activeSubTab === 'schedule' && (
-              <WorkScheduleSettings
+              <SettingWorkSchedule
                   schedule={user.work_schedule || DEFAULT_WORK_SCHEDULE}
                   onChange={handleWorkScheduleUpdate}
               />
