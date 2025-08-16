@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
-import { User, UserRole, DEFAULT_WORK_SCHEDULE } from '@/types';
+import { User, UserRole } from '@/types';
+import { DEFAULT_WORK_SCHEDULE } from '@/constants/schedule';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -26,46 +27,13 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   }
 });
 
-export const checkSupabaseConnection = async (retries = 3, delay = 2000): Promise<boolean> => {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const { error: authError } = await supabase.auth.getSession();
-      
-      if (authError) {
-        console.warn(`Auth check attempt ${i + 1} failed:`, authError.message);
-        if (i < retries - 1) {
-          await new Promise(resolve => setTimeout(resolve, delay));
-          continue;
-        }
-        return false;
-      }
-
-      const { error: dbError } = await supabase
-        .from('time_entries')
-        .select('id')
-        .limit(1)
-        .maybeSingle();
-
-      if (!dbError) {
-        console.log('Successfully connected to Supabase');
-        return true;
-      }
-
-      console.warn(`Database check attempt ${i + 1} failed:`, dbError.message);
-      
-      if (i < retries - 1) {
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
-    } catch (err) {
-      console.error(`Connection attempt ${i + 1} failed with error:`, err);
-      
-      if (i < retries - 1) {
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
-    }
+export const checkSupabaseConnection = async (): Promise<boolean> => {
+  try {
+    const { error: authError } = await supabase.auth.getSession();
+    return !authError;
+  } catch (err) {
+    return false;
   }
-
-  return false;
 };
 
 export const handleSupabaseError = (error: any): string => {
