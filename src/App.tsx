@@ -1,15 +1,16 @@
 import React, { Suspense, useEffect } from 'react';
+import { MinTimeSuspense } from './components/core/MinTimeSuspense';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
-import { LoadingLayout } from "./layouts/LoadingLayout.tsx";
-import { useThemeStore, updateThemeClass } from '@/store/themeStore';
-import { AuthPage } from "./pages/AuthPage.tsx";
-import { useAuthStore } from "./store/authStore.ts";
+import { LoadingLayout } from "./layouts/LoadingLayout";
+import { useThemeStore, updateThemeClass } from './store/themeStore';
+import { AuthPage } from "./pages/AuthPage";
+import { useAuthStore } from "./store/authStore";
 
 // Lazy load components
-const DashboardPage = React.lazy(() => import('@/pages/DashboardPage.tsx').then(m => ({ default: m.default })));
-const ProjectsPage = React.lazy(() => import('@/pages/ProjectsPage').then(m => ({ default: m.default })));
-const HistoryPage = React.lazy(() => import('@/pages/HistoryPage').then(m => ({ default: m.default })));
-const SettingsPage = React.lazy(() => import('@/pages/SettingsPage').then(m => ({ default: m.default })));
+const DashboardPage = React.lazy(() => import('./pages/DashboardPage').then(m => ({ default: m.default })));
+const ProjectsPage = React.lazy(() => import('./pages/ProjectsPage').then(m => ({ default: m.default })));
+const HistoryPage = React.lazy(() => import('./pages/HistoryPage').then(m => ({ default: m.default })));
+const SettingsPage = React.lazy(() => import('./pages/SettingsPage').then(m => ({ default: m.default })));
 
 const App: React.FC = () => {
   const { initialize, loading, user } = useAuthStore();
@@ -37,7 +38,7 @@ const App: React.FC = () => {
 
   return (
       <Router>
-        <Suspense fallback={<LoadingLayout/>}>
+        <MinTimeSuspense fallback={<LoadingLayout/>} minTime={1000}>
           <Routes>
             <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <AuthPage/>}/>
             <Route path="/dashboard" element={user ? <DashboardPage/> : <Navigate to="/login" />}/>
@@ -46,7 +47,7 @@ const App: React.FC = () => {
             <Route path="/settings" element={user ? <SettingsPage/> : <Navigate to="/login" />}/>
             <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"}/>}/>
           </Routes>
-        </Suspense>
+        </MinTimeSuspense>
       </Router>
   );
 };
