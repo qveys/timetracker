@@ -4,29 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Time Tracker</title>
+  <style>
+    html, body {
+      background-color: #111827; /* Default dark background */
+    }
+    html.light, html.light body {
+      background-color: #ffffff;
+    }
+  </style>
   <script>
-    (function () {
-      // Immediately restore dark mode preference
+    // First priority script to prevent FOW
+    (function() {
       try {
-        const stored = localStorage.getItem('theme-storage');
-        if (stored) {
-          const theme = JSON.parse(stored).state.theme;
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const isDark = theme === 'dark' || (theme === 'system' && prefersDark);
-
-          if (isDark) {
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.add('light');
-          }
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.add('light');
-        }
+        const theme = localStorage.getItem('theme-storage');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Simple string check for dark theme
+        const isDark = theme?.includes('"theme":"dark"') || 
+                      (theme?.includes('"theme":"system"') && prefersDark) ||
+                      (!theme && prefersDark);
+        
+        document.documentElement.classList.add(isDark ? 'dark' : 'light');
       } catch (e) {
-        console.error('Failed to restore theme:', e);
-        // Default to light theme
         document.documentElement.classList.add('light');
       }
     })();
