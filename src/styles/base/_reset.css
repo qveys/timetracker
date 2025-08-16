@@ -1,0 +1,17 @@
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    @apply h-full antialiased;
+  }
+  
+  body {
+    @apply h-full bg-white text-gray-900;
+  }
+
+  #root {
+    @apply h-full;
+  }
+} 

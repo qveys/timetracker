@@ -1,0 +1,7 @@
+.loading-screen {
+  @apply min-h-screen flex items-center justify-center;
+}
+
+.page-transition {
+  @apply min-h-screen;
+} 

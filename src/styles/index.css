@@ -1,0 +1,15 @@
+/* Base styles */
+@import './base/_reset.css';
+@import './base/_forms.css';
+@import './base/_layouts.css';
+
+/* Themes */
+@import './themes/_dark.css';
+
+/* Utils */
+@import './utils/_variables.css';
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

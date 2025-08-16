@@ -1,0 +1,19 @@
+@layer base {
+  :root {
+    --bg-primary: theme('colors.white');
+    --bg-secondary: theme('colors.gray.50');
+    --text-primary: theme('colors.gray.900');
+    --text-secondary: theme('colors.gray.500');
+    --border-primary: theme('colors.gray.200');
+    --border-secondary: theme('colors.gray.300');
+  }
+
+  :root.dark {
+    --bg-primary: theme('colors.gray.900');
+    --bg-secondary: theme('colors.gray.800');
+    --text-primary: theme('colors.white');
+    --text-secondary: theme('colors.gray.400');
+    --border-primary: theme('colors.gray.700');
+    --border-secondary: theme('colors.gray.600');
+  }
+} 

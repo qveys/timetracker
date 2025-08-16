@@ -1,0 +1,63 @@
+/* Virtualized List Styles */
+.virtualized-list-container {
+  contain: strict;
+  will-change: transform;
+}
+
+.virtualized-list-item {
+  contain: content;
+  will-change: transform;
+}
+@layer base {
+  /* Form elements */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  input[type="time"],
+  input[type="color"],
+  textarea,
+  select {
+    @apply block w-full rounded-md border-gray-200 bg-white shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-900;
+  }
+
+  /* Checkbox and radio */
+  input[type="checkbox"],
+  input[type="radio"] {
+    @apply rounded border-gray-300 text-blue-600 focus:ring-blue-500;
+  }
+
+  /* Labels */
+  label {
+    @apply block text-sm font-medium text-gray-700 mb-2;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition-colors duration-200 text-white bg-blue-600 hover:bg-blue-500 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .input-base {
+    @apply block w-full rounded-lg border text-sm shadow-sm transition-colors duration-200 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-400 dark:focus:ring-blue-400;
+  }
+
+  .select-base {
+    @apply block w-full rounded-lg border text-sm shadow-sm transition-colors duration-200 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-400 dark:focus:ring-blue-400;
+  }
+
+  .virtualized-list-container {
+    @apply w-full relative;
+  }
+
+  .virtualized-list-item {
+    @apply absolute top-0 left-0 w-full;
+  }
+} 

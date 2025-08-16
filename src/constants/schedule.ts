@@ -1,0 +1,11 @@
+import { WorkSchedule } from '@/types/common';
+
+export const DEFAULT_WORK_SCHEDULE: WorkSchedule = {
+  monday: [{ start: '09:00', end: '17:00' }],
+  tuesday: [{ start: '09:00', end: '17:00' }],
+  wednesday: [{ start: '09:00', end: '17:00' }],
+  thursday: [{ start: '09:00', end: '17:00' }],
+  friday: [{ start: '09:00', end: '17:00' }],
+  saturday: [],
+  sunday: [],
+}; 
