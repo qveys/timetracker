@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { MainTabsProps } from "@/types";
 
 type SettingsTab = 'account' | 'appearance' | 'notifications' | 'user-preferences';

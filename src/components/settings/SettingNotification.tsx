@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Bell, Save } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Toggle } from '@/components/ui/Toggle';
-import { NotificationSettingsProps } from "@/types";
+import type { SettingNotificationProps } from "@/types/user";
 
-const NOTIFICATION_OPTIONS = [
+type NotificationOption = {
+  key: keyof NotificationsState;
+  title: string;
+  description: string;
+};
+
+type NotificationsState = {
+  timerNotifications: boolean;
+  projectUpdates: boolean;
+  dailyReminders: boolean;
+  emailNotifications: boolean;
+};
+
+const NOTIFICATION_OPTIONS: NotificationOption[] = [
   {
     key: 'timerNotifications',
     title: 'Timer Notifications',
@@ -25,24 +38,24 @@ const NOTIFICATION_OPTIONS = [
     title: 'Email Notifications',
     description: 'Receive important notifications via email.'
   }
-] as const;
+];
 
-type NotificationKey = typeof NOTIFICATION_OPTIONS[number]['key'];
+const INITIAL_STATE: NotificationsState = {
+  timerNotifications: true,
+  projectUpdates: true,
+  dailyReminders: false,
+  emailNotifications: true,
+};
 
-export function NotificationSettings({ onSuccess, onError }: NotificationSettingsProps) {
+export function SettingNotification({ onSuccess, onError }: SettingNotificationProps) {
   const [loading, setLoading] = useState(false);
-  const [notifications, setNotifications] = useState({
-    timerNotifications: true,
-    projectUpdates: true,
-    dailyReminders: false,
-    emailNotifications: true,
-  });
+  const [notifications, setNotifications] = useState<NotificationsState>(INITIAL_STATE);
 
-  const handleToggle = (key: NotificationKey) => {
+  const handleToggle = useCallback((key: keyof NotificationsState) => {
     setNotifications(prev => ({ ...prev, [key]: !prev[key] }));
-  };
+  }, []);
 
-  const handleNotificationUpdate = async () => {
+  const handleNotificationUpdate = useCallback(async () => {
     setLoading(true);
     try {
       const { error: updateError } = await supabase.auth.updateUser({
@@ -55,7 +68,7 @@ export function NotificationSettings({ onSuccess, onError }: NotificationSetting
     } finally {
       setLoading(false);
     }
-  };
+  }, [notifications, onSuccess, onError]);
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">

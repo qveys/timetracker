@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
-import { useAuthStore } from "@/store/authStore.ts";
+import { useAuthStore } from '@/store/authStore';
+import { Input } from '@/components/ui';
 
 export function LoginForm({ onToggle }: { onToggle: () => void }) {
   const [email, setEmail] = useState('');
@@ -24,62 +25,52 @@ export function LoginForm({ onToggle }: { onToggle: () => void }) {
   };
 
   return (
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center gap-3">
-              <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0"/>
-              <p className="text-sm text-red-600">{error}</p>
-            </div>
-        )}
-
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email
-          </label>
-          <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="you@example.com"
-              required
-          />
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {error && (
+        <div className="bg-red-900/50 border border-red-800 rounded-lg p-4 flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+          <p className="text-sm text-red-400">{error}</p>
         </div>
+      )}
 
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-            Password
-          </label>
-          <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="••••••••"
-              required
-          />
-        </div>
+      <Input
+        id="email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="you@example.com"
+        required
+        label="Email"
+      />
 
+      <Input
+        id="password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="••••••••"
+        required
+        label="Password"
+      />
+
+      <button
+        type="submit"
+        disabled={isLoading}
+        className="w-full btn-primary"
+      >
+        {isLoading ? 'Signing in...' : 'Sign in'}
+      </button>
+
+      <p className="text-sm text-center text-gray-500 dark:text-gray-400">
+        Don't have an account?{' '}
         <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          type="button"
+          onClick={onToggle}
+          className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
         >
-          {isLoading ? 'Signing in...' : 'Sign in'}
+          Sign up
         </button>
-
-        <p className="text-center text-sm text-gray-600">
-          Don't have an account?{' '}
-          <button
-              type="button"
-              onClick={onToggle}
-              className="text-blue-600 hover:text-blue-700 font-medium"
-          >
-            Sign up
-          </button>
-        </p>
-      </form>
+      </p>
+    </form>
   );
 }

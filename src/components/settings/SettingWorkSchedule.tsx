@@ -1,20 +1,20 @@
-import React from 'react';
-import { WorkScheduleSettingsProps, DaysOfWeek } from '@/types';
-import { getCurrentDayIndex } from '@/utils/timeUtils';
+import React, { useCallback } from 'react';
+import type { SettingWorkScheduleProps, DaysOfWeek } from '@/types/common';
+import { getCurrentDayIndex } from '@/utils/timeFormatters';
 import { useWorkSchedule } from '@/hooks/useWorkSchedule';
 import { DaySchedule } from './DaySchedule';
 
-export function WorkScheduleSettings({ schedule, onChange }: WorkScheduleSettingsProps) {
-  const DAY_LABELS: Record<DaysOfWeek, string> = {
-    monday: 'Monday',
-    tuesday: 'Tuesday', 
-    wednesday: 'Wednesday',
-    thursday: 'Thursday',
-    friday: 'Friday',
-    saturday: 'Saturday',
-    sunday: 'Sunday'
-  };
+const DAY_LABELS: Record<DaysOfWeek, string> = {
+  monday: 'Monday',
+  tuesday: 'Tuesday',
+  wednesday: 'Wednesday',
+  thursday: 'Thursday',
+  friday: 'Friday',
+  saturday: 'Saturday',
+  sunday: 'Sunday'
+};
 
+export function SettingWorkSchedule({ schedule, onChange }: SettingWorkScheduleProps) {
   const {
     schedule: currentSchedule,
     errors,
@@ -24,27 +24,35 @@ export function WorkScheduleSettings({ schedule, onChange }: WorkScheduleSetting
     resetToDefault
   } = useWorkSchedule(schedule);
 
-  const handleTimeSlotChange = (day: keyof typeof currentSchedule, index: number, field: 'start' | 'end', value: string) => {
+  const currentDayIndex = getCurrentDayIndex();
+
+  const handleTimeSlotChange = useCallback((
+    day: keyof typeof currentSchedule,
+    index: number,
+    field: 'start' | 'end',
+    value: string
+  ) => {
     updateTimeSlot(day, index, field, value);
     onChange(currentSchedule);
-  };
+  }, [currentSchedule, onChange, updateTimeSlot]);
 
-  const handleAddTimeSlot = (day: keyof typeof currentSchedule) => {
+  const handleAddTimeSlot = useCallback((day: keyof typeof currentSchedule) => {
     addTimeSlot(day);
     onChange(currentSchedule);
-  };
+  }, [addTimeSlot, currentSchedule, onChange]);
 
-  const handleRemoveTimeSlot = (day: keyof typeof currentSchedule, index: number) => {
+  const handleRemoveTimeSlot = useCallback((
+    day: keyof typeof currentSchedule,
+    index: number
+  ) => {
     removeTimeSlot(day, index);
     onChange(currentSchedule);
-  };
+  }, [removeTimeSlot, currentSchedule, onChange]);
 
-  const handleResetToDefault = () => {
+  const handleResetToDefault = useCallback(() => {
     resetToDefault();
     onChange(currentSchedule);
-  };
-
-  const currentDayIndex = getCurrentDayIndex();
+  }, [resetToDefault, currentSchedule, onChange]);
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">

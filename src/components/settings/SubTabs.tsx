@@ -1,5 +1,5 @@
 import React from 'react';
-import { SubTabsProps, UserPreferencesSubTab } from "@/types";
+import { SubTabsProps, UserPreferencesSubTab } from "@/types/common";
 
 export const SubTabs = ({ activeTab, setActiveSubTab, activeSubTab } : SubTabsProps ) => {
   return (

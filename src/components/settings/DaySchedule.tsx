@@ -1,6 +1,6 @@
 import React from 'react';
 import { Plus, Trash2, Clock, AlertCircle } from 'lucide-react';
-import { DaysOfWeek, WorkingHours, DayScheduleProps } from '@/types';
+import { DayScheduleProps } from '@/types/common';
 
 export function DaySchedule({
   day,
@@ -46,31 +46,43 @@ export function DaySchedule({
       {slots.length === 0 ? (
         <p className="text-gray-500 dark:text-gray-400 text-sm italic">No working hours set</p>
       ) : (
-        <div className="space-y-3">
+        <div className="flex flex-wrap gap-3">
           {slots.map((slot, index) => (
-            <div key={index} className="flex items-center space-x-4 bg-white dark:bg-gray-700 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+            <div key={index} className="flex-1 flex items-center bg-white dark:bg-gray-700 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
               <div className="flex-shrink-0">
                 <Clock className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </div>
-              <div className="flex-1 flex items-center space-x-4">
+              <div className="flex-1 flex items-center space-x-4 ml-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Start</label>
+                  <label>
+                    Start
+                  </label>
                   <input
                     type="time"
                     value={slot.start}
-                    onChange={(e) => onTimeSlotChange(day, index, 'start', e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value.length < 2) return; // Don't process partial inputs
+                      onTimeSlotChange(day, index, 'start', value);
+                    }}
                     aria-label={`Start time for ${dayLabel} time slot ${index + 1}`}
-                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">End</label>
+                  <label>
+                    End
+                  </label>
                   <input
                     type="time"
                     value={slot.end}
-                    onChange={(e) => onTimeSlotChange(day, index, 'end', e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value.length < 2) return; // Don't process partial inputs
+                      onTimeSlotChange(day, index, 'end', value);
+                    }}
                     aria-label={`End time for ${dayLabel} time slot ${index + 1}`}
-                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                   />
                 </div>
                 <button
