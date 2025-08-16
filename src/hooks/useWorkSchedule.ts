@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { WorkSchedule, WorkingHours, DaysOfWeek, DEFAULT_WORK_SCHEDULE } from '@/types';
-import { parseTimeToMinutes, formatTime } from '@/utils/timeUtils';
+import { WorkSchedule, WorkingHours } from '@/types';
+import { DEFAULT_WORK_SCHEDULE } from '@/constants/schedule';
+import { parseTimeToMinutes, formatTime } from '@/utils/timeFormatters';
 
 export function useWorkSchedule(initialSchedule: WorkSchedule = DEFAULT_WORK_SCHEDULE) {
   const [schedule, setSchedule] = useState<WorkSchedule>(initialSchedule);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { useSupabase } from './useSupabase';
+import { useSupabase } from '@/hooks/useSupabase';
 
 export const useAccount = (userEmail: string) => {
   const [email, setEmail] = useState(userEmail);
@@ -53,4 +53,4 @@ export const useAccount = (userEmail: string) => {
     updateEmail,
     updatePassword
   };
-}; 
+};
